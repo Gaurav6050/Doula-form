@@ -885,11 +885,11 @@ export default function DoulaCertificationForm() {
               <FileUploadBox
                 id="certification-upload"
                 label="Upload your certification proof"
-                fileName={formData.certificationFile}
+                fileName={formData.certificationFile?.name}
                 hint="PDF, JPG, or PNG (max 10MB)"
                 accept=".pdf,.jpg,.jpeg,.png"
                 onFileSelect={async (file) => {
-                  updateForm("certificationFile", file.name);
+                  updateForm("certificationFile", file);
                   updateForm(
                     "certificationFileBase64",
                     await convertToBase64(file)
@@ -1138,11 +1138,11 @@ export default function DoulaCertificationForm() {
                   <FileUploadBox
                     id="cpr-upload"
                     label="Upload CPR Certificate"
-                    fileName={formData.cprFile}
+                    fileName={formData.cprFile?.name}
                     hint="PDF, JPG, or PNG"
                     accept=".pdf,.jpg,.jpeg,.png"
                     onFileSelect={async (file) => {
-                      updateForm("cprFile", file.name);
+                      updateForm("cprFile", file);
                       updateForm("cprFileBase64", await convertToBase64(file));
                     }}
                   />
@@ -1224,11 +1224,11 @@ export default function DoulaCertificationForm() {
                   <FileUploadBox
                     id="hipaa-upload"
                     label="Upload HIPAA Certificate"
-                    fileName={formData.hipaaFile}
+                    fileName={formData.hipaaFile?.name}
                     hint="PDF, JPG, or PNG"
                     accept=".pdf,.jpg,.jpeg,.png"
                     onFileSelect={async (file) => {
-                      updateForm("hipaaFile", file.name);
+                      updateForm("hipaaFile", file);
                       updateForm(
                         "hipaaFileBase64",
                         await convertToBase64(file)
@@ -1394,11 +1394,11 @@ export default function DoulaCertificationForm() {
               <FileUploadBox
                 id="medicalApproval-upload"
                 label="Upload Medi-Cal/DHCS Approval Letter"
-                fileName={formData.mediCalApprovalFile}
+                fileName={formData.mediCalApprovalFile?.name}
                 hint="PDF only (max 1MB)"
                 accept=".pdf"
                 onFileSelect={async (file) => {
-                  updateForm("mediCalApprovalFile", file.name);
+                  updateForm("mediCalApprovalFile", file);
                   updateForm(
                     "mediCalApprovalFileBase64",
                     await convertToBase64(file)
@@ -1701,11 +1701,11 @@ export default function DoulaCertificationForm() {
               <FileUploadBox
                 id="headshot-upload"
                 label="Upload your headshot"
-                fileName={formData.headshotFile}
+                fileName={formData.headshotFile?.name}
                 hint="JPG or PNG, professional quality preferred"
                 accept=".jpg,.jpeg,.png"
                 onFileSelect={async (file) => {
-                  updateForm("headshotFile", file.name);
+                  updateForm("headshotFile", file);
                   updateForm("headshotFileBase64", await convertToBase64(file));
                 }}
               />
