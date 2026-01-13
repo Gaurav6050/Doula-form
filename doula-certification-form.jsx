@@ -433,9 +433,9 @@ export default function DoulaCertificationForm() {
           createFileData(item.file, item.base64)
         ).filter(f => f !== null),
         specialties: formData.specialties,
-        cprCertified: formData.cprCertified,
+        cprCertified: formData.cprCertified === "yes", // ensures boolean
         cprFile: createFileData(formData.cprFile, formData.cprFileBase64),
-        hipaaTrained: formData.hipaaTrained,
+        hipaaTrained: formData.hipaaTrained === "yes", // ensures boolean
         hipaaFile: createFileData(formData.hipaaFile, formData.hipaaFileBase64),
         npiNumber: formData.npiNumber,
         // Map multiple insurance files
@@ -451,7 +451,7 @@ export default function DoulaCertificationForm() {
         careTypesOther: formData.careTypesOther,
         languages: formData.languages,
         engagementPreferences: formData.engagementPreferences,
-        inPersonLaborSupport: formData.inPersonLaborSupport,
+        inPersonLaborSupport: formData.inPersonLaborSupport === true, // ensures boolean
         bio: formData.bio,
         philosophy: formData.philosophy,
         availableMonths: formData.availableMonths,
@@ -460,7 +460,11 @@ export default function DoulaCertificationForm() {
         vaccinationComfortOther: formData.vaccinationComfortOther,
         referralSource: formData.referralSource,
         referralSourceOther: formData.referralSourceOther,
-        finalComments: formData.finalComments,
+        finalComments: [
+          formData.finalComments,
+          formData.cprCertified === "in_process" ? "CPR Certification: In Process" : "",
+          formData.hipaaTrained === "in_process" ? "HIPAA Training: In Process" : ""
+        ].filter(Boolean).join("\n"),
       };
 
       console.log('Submitting to Salesforce:', payload);
