@@ -1,0 +1,131 @@
+@import url('https://fonts.cdnfonts.com/css/general-sans');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Raya Doula Certification Form Design System */
+
+@layer base {
+  :root {
+    /* Primary Green Palette */
+    --background: 100 20% 94%;
+    --foreground: 120 18% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 120 18% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 120 18% 20%;
+
+    --primary: 120 15% 21%;
+    --primary-foreground: 100 20% 98%;
+
+    --secondary: 100 18% 85%;
+    --secondary-foreground: 120 15% 21%;
+
+    --muted: 100 15% 90%;
+    --muted-foreground: 100 10% 40%;
+
+    --accent: 100 35% 55%;
+    --accent-foreground: 120 15% 21%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 100 20% 78%;
+    --input: 100 20% 78%;
+    --ring: 120 15% 21%;
+
+    --radius: 0.5rem;
+
+    /* Raya-specific tokens */
+    --raya-gradient: linear-gradient(180deg, hsl(100 20% 91%) 0%, hsl(100 30% 80%) 50%, hsl(100 50% 64%) 100%);
+    --raya-card-bg: hsla(0, 0%, 100%, 0.85);
+    --raya-title: 120 18% 20%;
+    --raya-subtitle: 100 12% 38%;
+    --raya-input-border: 100 20% 78%;
+    --raya-success: 120 40% 45%;
+    --raya-error: 0 72% 51%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 120 15% 8%;
+    --foreground: 100 20% 95%;
+
+    --card: 120 15% 10%;
+    --card-foreground: 100 20% 95%;
+
+    --popover: 120 15% 10%;
+    --popover-foreground: 100 20% 95%;
+
+    --primary: 100 40% 65%;
+    --primary-foreground: 120 15% 10%;
+
+    --secondary: 120 12% 18%;
+    --secondary-foreground: 100 20% 95%;
+
+    --muted: 120 12% 18%;
+    --muted-foreground: 100 15% 60%;
+
+    --accent: 100 35% 55%;
+    --accent-foreground: 120 15% 10%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 100 20% 95%;
+
+    --border: 120 12% 22%;
+    --input: 120 12% 22%;
+    --ring: 100 40% 65%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
