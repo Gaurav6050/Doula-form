@@ -370,6 +370,11 @@ export default function DoulaCertificationForm() {
         if (formData.hipaaTrained === null)
           newErrors.hipaaTrained = "Please select an option";
         break;
+      case 4:
+        if (formData.npiNumber && !/^\d{10}$/.test(formData.npiNumber.trim())) {
+           newErrors.npiNumber = "NPI must be exactly 10 digits";
+        }
+        break;
       case 5:
         if (!formData.bio.trim()) newErrors.bio = "Please provide a short bio";
         if (formData.careTypes.length === 0)
@@ -456,8 +461,8 @@ export default function DoulaCertificationForm() {
         philosophy: formData.philosophy,
         availableMonths: formData.availableMonths,
         headshotFile: createFileData(formData.headshotFile, formData.headshotFileBase64),
-        vaccinationComfort: formData.vaccinationComfort,
-        vaccinationComfortOther: formData.vaccinationComfortOther,
+        vaccinationComfort: formData.vaccinationEncouragement, // Fixed mismatch
+        vaccinationComfortOther: formData.vaccinationEncouragementOther, // Fixed mismatch
         referralSource: formData.referralSource,
         referralSourceOther: formData.referralSourceOther,
         finalComments: [
@@ -1276,9 +1281,13 @@ export default function DoulaCertificationForm() {
                 style={styles.input}
                 type="text"
                 value={formData.npiNumber}
-                onChange={(e) => updateForm("npiNumber", e.target.value)}
-                placeholder="Your answer"
+                onChange={(e) => updateForm("npiNumber", e.target.value.replace(/\D/g, '').slice(0, 10))} // Enforce numeric only and max length
+                placeholder="10-digit NPI Number"
+                maxLength={10}
               />
+              {errors.npiNumber && (
+                <p style={styles.errorText}>{errors.npiNumber}</p>
+              )}
             </div>
 
             <div style={styles.inputGroup}>
