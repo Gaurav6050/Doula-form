@@ -581,7 +581,7 @@ export default function DoulaCertificationForm() {
                 
               </span>
               <h2 style={{ ...styles.stepTitle, textAlign: "center" }}>
-                Doula Intake Form
+                Doula Certification Form
               </h2>
               <p style={{ ...styles.stepSubtitle, textAlign: "center" }}>
                 Please complete this form to provide your qualifications.
@@ -757,7 +757,7 @@ export default function DoulaCertificationForm() {
                 placeholder="Optional - helps match you to patients"
               />
               <p style={styles.inputHint}>
-                We ask only to help match you to patients per their preferences.
+                We ask only to help match you to patients as per their preferences.
               </p>
             </div>
 
@@ -866,7 +866,7 @@ export default function DoulaCertificationForm() {
                     marginBottom: 0,
                   }}
                 >
-                  Email sobia@findraya.com if you would like to do the
+                 Please <strong>Email sobia@findraya.com</strong> if you would like to do the
                   experience pathway.
                 </p>
               </div>
