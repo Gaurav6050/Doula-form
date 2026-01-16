@@ -20,9 +20,36 @@ const careTypesOptions = [
   "Virtual Labor / Birth",
   "Postpartum",
   "Prenatal/Antepartum",
-  "Miscarriage",
+  "Pregnancy loss",
   "Abortion",
   "IVF Support",
+  "Other",
+];
+
+// Hospital and birthing facility options for doula services
+const hospitalFacilitiesOptions = [
+  "Cedars-Sinai Medical Center",
+  "UCLA Medical Center",
+  "Kaiser Permanente Los Angeles Medical Center",
+  "Providence Saint John's Health Center",
+  "Huntington Hospital",
+  "Long Beach Memorial Medical Center",
+  "Hoag Hospital",
+  "St. Joseph Hospital Orange",
+  "Saddleback Medical Center",
+  "UCSD Medical Center",
+  "Sharp Mary Birch Hospital for Women & Newborns",
+  "Stanford Health Care",
+  "UCSF Medical Center",
+  "Sutter Health CPMC",
+  "Kaiser Permanente San Francisco",
+  "John Muir Medical Center",
+  "Community Hospital of the Monterey Peninsula",
+  "Santa Barbara Cottage Hospital",
+  "The Sanctuary Birth & Family Wellness Center",
+  "Kindred Birth Center",
+  "Birth Center of Southern California",
+  "Sage Femme Birth Center",
   "Other",
 ];
 
@@ -299,11 +326,14 @@ export default function DoulaCertificationForm() {
     referralSource: "",
     referralSourceOther: "",
     finalComments: "",
+    hospitalFacilities: [], // Hospitals and birthing facilities where services are provided
+    hospitalFacilitiesOther: "", // For "Other" option - custom facility name
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isHospitalDropdownOpen, setIsHospitalDropdownOpen] = useState(false);
 
   const totalSteps = 7;
 
@@ -465,6 +495,8 @@ export default function DoulaCertificationForm() {
         vaccinationComfortOther: formData.vaccinationEncouragementOther, // Fixed mismatch
         referralSource: formData.referralSource,
         referralSourceOther: formData.referralSourceOther,
+        hospitalFacilities: formData.hospitalFacilities,
+        hospitalFacilitiesOther: formData.hospitalFacilitiesOther,
         finalComments: [
           formData.finalComments,
           formData.cprCertified === "in_process" ? "CPR Certification: In Process" : "",
@@ -581,7 +613,7 @@ export default function DoulaCertificationForm() {
                 
               </span>
               <h2 style={{ ...styles.stepTitle, textAlign: "center" }}>
-                Doula Certification Form
+                Doula Intake Form
               </h2>
               <p style={{ ...styles.stepSubtitle, textAlign: "center" }}>
                 Please complete this form to provide your qualifications.
@@ -757,7 +789,7 @@ export default function DoulaCertificationForm() {
                 placeholder="Optional - helps match you to patients"
               />
               <p style={styles.inputHint}>
-                We ask only to help match you to patients as per their preferences.
+                We ask only to help match you to patients per their preferences.
               </p>
             </div>
 
@@ -866,7 +898,7 @@ export default function DoulaCertificationForm() {
                     marginBottom: 0,
                   }}
                 >
-                 Please <strong>Email sobia@findraya.com</strong> if you would like to do the
+                  Email sobia@findraya.com if you would like to do the
                   experience pathway.
                 </p>
               </div>
@@ -1661,6 +1693,162 @@ export default function DoulaCertificationForm() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Hospital and Birthing Facilities Section */}
+            <div style={{ ...styles.inputGroup, position: 'relative' }}>
+              <label style={styles.label}>
+                Which hospitals and birthing facilities do you provide your services at?
+              </label>
+              <p style={styles.inputHint}>
+                Click to select multiple facilities. Click outside to close.
+              </p>
+              
+              {/* Custom Multi-select dropdown */}
+              <div style={{ position: 'relative' }}>
+                <button
+                  type="button"
+                  onClick={() => setIsHospitalDropdownOpen(!isHospitalDropdownOpen)}
+                  style={{
+                    ...styles.input,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    textAlign: 'left',
+                  }}
+                >
+                  <span style={{ color: formData.hospitalFacilities.length > 0 ? '#2D3A2D' : '#9CA3AF' }}>
+                    {formData.hospitalFacilities.length > 0 
+                      ? `${formData.hospitalFacilities.length} facility(ies) selected`
+                      : '-- Select facilities --'}
+                  </span>
+                  <span style={{ fontSize: 12 }}>{isHospitalDropdownOpen ? '▲' : '▼'}</span>
+                </button>
+                
+                {isHospitalDropdownOpen && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      right: 0,
+                      maxHeight: 250,
+                      overflowY: 'auto',
+                      background: '#fff',
+                      border: '1px solid #D1D5DB',
+                      borderRadius: 8,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      zIndex: 100,
+                      marginTop: 4,
+                    }}
+                  >
+                    {hospitalFacilitiesOptions.map((facility) => (
+                      <label
+                        key={facility}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 10,
+                          padding: '10px 14px',
+                          cursor: 'pointer',
+                          borderBottom: '1px solid #F3F4F6',
+                          background: formData.hospitalFacilities.includes(facility) ? '#E8F0E8' : '#fff',
+                          transition: 'background 0.15s',
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = formData.hospitalFacilities.includes(facility) ? '#DCE8DC' : '#F9FAFB'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = formData.hospitalFacilities.includes(facility) ? '#E8F0E8' : '#fff'}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={formData.hospitalFacilities.includes(facility)}
+                          onChange={() => toggleArrayItem("hospitalFacilities", facility)}
+                          style={{
+                            width: 18,
+                            height: 18,
+                            accentColor: '#4A5D4A',
+                            cursor: 'pointer',
+                          }}
+                        />
+                        <span style={{ fontSize: 14, color: '#2D3A2D' }}>{facility}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* Click outside to close */}
+              {isHospitalDropdownOpen && (
+                <div
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 99,
+                  }}
+                  onClick={() => setIsHospitalDropdownOpen(false)}
+                />
+              )}
+
+              {/* Selected facilities as pills */}
+              {formData.hospitalFacilities.length > 0 && (
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 8,
+                  marginTop: 12,
+                }}>
+                  {formData.hospitalFacilities.map((facility) => (
+                    <span
+                      key={facility}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        padding: '6px 12px',
+                        background: '#E8F0E8',
+                        border: '1px solid #4A5D4A',
+                        borderRadius: 20,
+                        fontSize: 13,
+                        color: '#2D3A2D',
+                      }}
+                    >
+                      {facility}
+                      <button
+                        type="button"
+                        onClick={() => toggleArrayItem("hospitalFacilities", facility)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#4A5D4A',
+                          cursor: 'pointer',
+                          fontSize: 16,
+                          padding: 0,
+                          lineHeight: 1,
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Other input field */}
+              {formData.hospitalFacilities.includes("Other") && (
+                <input
+                  style={{ ...styles.input, marginTop: 12 }}
+                  type="text"
+                  value={formData.hospitalFacilitiesOther}
+                  onChange={(e) =>
+                    updateForm("hospitalFacilitiesOther", e.target.value)
+                  }
+                  placeholder="Please specify the hospital or birthing facility..."
+                />
+              )}
             </div>
 
             <div style={styles.inputGroup}>
